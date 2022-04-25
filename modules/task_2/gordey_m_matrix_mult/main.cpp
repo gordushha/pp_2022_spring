@@ -53,7 +53,7 @@ TEST(SPARSE_MATRIX_MULT_SEQ, MULT_2) {
 }
 
 TEST(SPARSE_MATRIX_MULT_SEQ, MULT_3) {
-    int count = 120;
+    int count = 500;
     double* arr = create_random_matrix(count*count);
     double* arr1 = create_random_matrix(count*count);
     SparseM A(arr, count, count);
@@ -74,27 +74,26 @@ TEST(SPARSE_MATRIX_MULT_SEQ, MULT_3) {
     ASSERT_EQ(D, C);
 }
 TEST(SPARSE_MATRIX_MULT_SEQ, MULT_4) {
-    int count = 150;
-    double* arr = create_random_matrix(count*count);
-    double* arr1 = create_random_matrix(count*count);
-    SparseM A(arr, count, count);
-    SparseM B(arr1, count, count);
-    delete[] arr;
-    delete[] arr1;
-     double start_seq = omp_get_wtime();
-    SparseM C = A*B;
-     double end_seq = omp_get_wtime();
-     double seq_time = end_seq - start_seq;
-     double start_omp = omp_get_wtime();
-    SparseM D = Mult_parallel(A, B);
-     double end_omp = omp_get_wtime();
-     double omp_time = end_omp - start_omp;
-     std::cout << "seq time: " << seq_time << "\n";
-     std::cout << "omp time: " << omp_time << "\n";
-     std::cout << "a: " << seq_time / omp_time << "\n";
-    ASSERT_EQ(D, C);
+  int count = 1000;
+  double* arr = create_random_matrix(count * count);
+  double* arr1 = create_random_matrix(count * count);
+  SparseM A(arr, count, count);
+  SparseM B(arr1, count, count);
+  delete[] arr;
+  delete[] arr1;
+  double start_seq = omp_get_wtime();
+  SparseM C = A * B;
+  double end_seq = omp_get_wtime();
+  double seq_time = end_seq - start_seq;
+  double start_omp = omp_get_wtime();
+  SparseM D = Mult_parallel(A, B);
+  double end_omp = omp_get_wtime();
+  double omp_time = end_omp - start_omp;
+  std::cout << "seq time: " << seq_time << "\n";
+  std::cout << "omp time: " << omp_time << "\n";
+  std::cout << "a: " << seq_time / omp_time << "\n";
+  ASSERT_EQ(D, C);
 }
-
 int main(int argc, char** argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
