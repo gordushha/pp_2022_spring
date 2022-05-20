@@ -56,50 +56,48 @@ TEST(SPARSE_MATRIX_MULT_SEQ, MULT_2) {
 }
 
 TEST(SPARSE_MATRIX_MULT_SEQ, MULT_3) {
-        int count = 300;
+        int count = 10;
         double* arr = create_random_matrix(count*count);
         double* arr1 = create_random_matrix(count*count);
         SparseM A(arr, count, count);
         SparseM B(arr1, count, count);
         delete[] arr;
         delete[] arr1;
-        tbb::tick_count start_seq = tbb::tick_count::now();
+        // tbb::tick_count start_seq = tbb::tick_count::now();
         SparseM C = A * B;
-        tbb::tick_count end_seq = tbb::tick_count::now();
-        double sequential_runtime = (end_seq - start_seq).seconds();
-        tbb::tick_count start_tbb = tbb::tick_count::now();
+        // tbb::tick_count end_seq = tbb::tick_count::now();
+        // double sequential_runtime = (end_seq - start_seq).seconds();
+        // tbb::tick_count start_tbb = tbb::tick_count::now();
         SparseM D = Mult_parallel(A, B);
-        tbb::tick_count end_tbb = tbb::tick_count::now();
-        double parallel_tbb_runtime = (end_tbb - start_tbb).seconds();
-        std::cout << "sequential_runtime = "
-                << sequential_runtime << std::endl;
-        std::cout << "parallel_tbb_runtime = "
-                << parallel_tbb_runtime << std::endl;
-        std::cout << "a: " << sequential_runtime / parallel_tbb_runtime << "\n";
+        // tbb::tick_count end_tbb = tbb::tick_count::now();
+        // double parallel_tbb_runtime = (end_tbb - start_tbb).seconds();
+        // std::cout << "sequential_runtime = "
+        // << sequential_runtime << std::endl;
+        // std::cout << "parallel_tbb_runtime = "
+        // << parallel_tbb_runtime << std::endl;
         ASSERT_EQ(D, C);
 }
 TEST(SPARSE_MATRIX_MULT_SEQ, MULT_4) {
-        int count = 320;
+        int count = 10;
         double* arr = create_random_matrix(count*count);
         double* arr1 = create_random_matrix(count*count);
         SparseM A(arr, count, count);
         SparseM B(arr1, count, count);
         delete[] arr;
         delete[] arr1;
-        tbb::tick_count start_seq = tbb::tick_count::now();
+        // tbb::tick_count start_seq = tbb::tick_count::now();
         SparseM C = A * B;
-        tbb::tick_count end_seq = tbb::tick_count::now();
-        double sequential_runtime = (end_seq - start_seq).seconds();
-        tbb::tick_count start_tbb = tbb::tick_count::now();
+        // tbb::tick_count end_seq = tbb::tick_count::now();
+        // double sequential_runtime = (end_seq - start_seq).seconds();
+        // tbb::tick_count start_tbb = tbb::tick_count::now();
         SparseM D = Mult_parallel(A, B);
-        tbb::tick_count end_tbb = tbb::tick_count::now();
-        double parallel_tbb_runtime =
-                (end_tbb - start_tbb).seconds();
-        std::cout << "sequential_runtime = "
-                << sequential_runtime << std::endl;
-        std::cout << "parallel_tbb_runtime = "
-                << parallel_tbb_runtime << std::endl;
-        std::cout << "a: " << sequential_runtime / parallel_tbb_runtime << "\n";
+        // tbb::tick_count end_tbb = tbb::tick_count::now();
+        // double parallel_tbb_runtime =
+        // (end_tbb - start_tbb).seconds();
+        // std::cout << "sequential_runtime = "
+        // << sequential_runtime << std::endl;
+        // std::cout << "parallel_tbb_runtime = "
+        // << parallel_tbb_runtime << std::endl;
         ASSERT_EQ(D, C);
 }
 
